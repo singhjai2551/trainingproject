@@ -1,1 +1,52 @@
-print "hello world!"
+import serial
+import time
+import RPi.GPIO as r
+import smtplib
+import Adafruit_DHT as d
+def temp_status():
+    h,t=d.read_retry(d.DHT11,4)
+    r1=str(t)
+    r2=str(h)
+    temp=t
+    return temp
+def read_rf():
+    ser=serial.SERIAL("/dev/ttySO")
+    ser.baudrate=9600
+    data=ser.read(12)
+    ser.close()
+    return data
+def seq():
+    id=read_rf()
+    person=no_of_person()
+    if (id==123654478696 and person!=0):
+        r.output(door,open)
+        automatic()
+        if(person!=0 or ):
+            if(throsold0<=temp):
+                r.output(fan,on)
+                r.output(ac,on)
+            elif(throsold1<=temp):
+                r.output(fan,on)
+                r.output(ac,off)
+            elif(temp<throsold0):
+                r.output(fan,off)
+                r.output(ac,off)
+            
+    else:
+        mailwrng()
+def mailwrng():
+    mymail=('shaktisinghpk12@gmail.com')
+    s=smtplib.SMTP('64.233.184.108')
+    s.starttls()
+    s.login('#Enter the mailing id here','Enter the password here')
+    message='Someone is trying to enter your home using unauthorised card'
+    s.sendmail('purohitnavneel332@gmail.com',mymail,message)
+    s.quit()
+def automatic():
+    temp=temp_status()
+    light=intensity_status()
+
+r.setmode(r.BCM)
+while (True):
+    seq()
+    
