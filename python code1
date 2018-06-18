@@ -1,1 +1,15 @@
-print "hello world!"
+from firebase import firebase
+firebase= firebase.FirebaseApplication('https://neel-s-project.firebaseio.com/')
+hum=input('Humidity:')
+ldr=input('LDR Value')
+ir=input('IR Value:')
+
+
+
+
+firebase.put('/user',"humidity",hum)
+firebase.put('/user',"ir",ir)
+firebase.put('/user',"ldr",ldr)
+
+#to get value result= firebase.get('/user','humidity')
+#result= firebase.post('/user',{'humidity':'50'})
